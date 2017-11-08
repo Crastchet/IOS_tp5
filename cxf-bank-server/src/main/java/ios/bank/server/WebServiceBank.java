@@ -4,6 +4,9 @@ import java.util.Calendar;
 
 import ios.bank.server.domain.BankAccount;
 import ios.bank.server.domain.BankAccountCheques;
+import ios.bank.server.domain.BankAccountLivretA;
+import ios.bank.server.domain.BankAccountLivretDeveloppementDurable;
+import ios.bank.server.domain.BankAccountLivretJeune;
 import ios.bank.server.domain.Customer;
 import ios.bank.server.exceptions.BankAccountAlreadyExistException;
 import ios.bank.server.exceptions.BankAccountNoBelongToCustomer;
@@ -55,34 +58,82 @@ public class WebServiceBank implements WebServiceBankInterface {
 		case "CHEQUES":
 			my_bankAccount = new BankAccountCheques(customer);
 			break;
+		case "LIVRET_A":
+			my_bankAccount = new BankAccountLivretA(customer);
+			break;
+		case "LIVRET_D_D":
+			my_bankAccount = new BankAccountLivretDeveloppementDurable(customer);
+			break;
+		case "LIVRET_JEUNE":
+			my_bankAccount = new BankAccountLivretJeune(customer);
+			break;
 		}
+		
+		my_bankAccount.setCustomer(customer);
+		BDD.addBankAccount(my_accountType);
+		
+		return my_bankAccount;
 	}
 
 	@Override
 	public BankAccount getBankAccount(Customer customer, String accountType)
 			throws CustomerNoExistException, BankAccountTypeNoExistException, BankAccountNoExistException {
 		// TODO Auto-generated method stub
-		return null;
+		Customer my_customer = BDD.findCustomer(customer);
+		if(my_customer == null)
+			throw new CustomerNoExistException();
+		
+		String my_accountType = BDD.findAccountType(accountType);
+		if(my_accountType == null)
+			throw new BankAccountTypeNoExistException();
+		
+		BankAccount my_bankAccount = BDD.findBankAccount(customer,accountType);
+		if(my_bankAccount == null)
+			throw new BankAccountNoExistException();
+		
+		return my_bankAccount;
 	}
 
 	@Override
 	public double creditMoney(BankAccount bankAccount, double amount)
 			throws BankAccountNoExistException, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		return 0;
+		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
+		if(my_bankAccount == null)
+			throw new BankAccountNoExistException();
+		
+		if(amount <= 0)
+			throw new IncorrectAmountException("Tried to credit the bank account " + bankAccount + " with the amount of " + amount + ". Crediting a bank account with a null or negative amount is not allowed !");
+		
+		bankAccount.creditMoney(amount); // le save en bd ou pas ? faire des micro tests
+		return bankAccount.getBalance();
 	}
 
 	@Override
 	public double getBalance(BankAccount bankAccount) throws BankAccountNoExistException {
 		// TODO Auto-generated method stub
-		return 0;
+		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
+		if(my_bankAccount == null)
+			throw new BankAccountNoExistException();
+		
+		return bankAccount.getBalance();
 	}
 
 	@Override
 	public double debitMoney(BankAccount bankAccount, double amount)
 			throws BankAccountNoExistException, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		return 0;
+		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
+		if(my_bankAccount == null)
+			throw new BankAccountNoExistException();
+		
+		if(amount <= 0)
+			throw new IncorrectAmountException("Tried to credit the bank account " + bankAccount + " with the amount of " + amount + ". Crediting a bank account with a null or negative amount is not allowed !");
+		if(amount > bankAccount.getBalance())
+			throw new IncorrectAmountException("Tried to debit the bank account " + bankAccount + " with the amount of " + amount + ". Debiting a bank account with an amount bigger than its balance is not allowed !");
+		
+		bankAccount.debitMoney(amount); // le save en bd ou pas ? faire des micro tests
+		return bankAccount.getBalance();
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package ios.bank.server;
 
 import java.util.Calendar;
 
+import javax.jws.WebService;
+
 import ios.bank.database.DataBase;
 import ios.bank.server.domain.BankAccount;
 import ios.bank.server.domain.BankAccountCheques;
@@ -18,6 +20,7 @@ import ios.bank.server.exceptions.CustomerAlreadyExistException;
 import ios.bank.server.exceptions.CustomerNoExistException;
 import ios.bank.server.exceptions.IncorrectAmountException;
 
+@WebService(endpointInterface = "ios.bank.server.WebServiceBankInterface")
 public class WebServiceBank implements WebServiceBankInterface {
 	
 	private DataBase BDD = DataBase.instanceDataBase();
@@ -26,38 +29,44 @@ public class WebServiceBank implements WebServiceBankInterface {
 	public Customer createCustomer(String firstname, String lastname, Calendar birth)
 			throws CustomerAlreadyExistException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(firstname,lastname,birth);
-		if(my_customer != null)
+		boolean found;
+		found = BDD.findCustomer(firstname,lastname,birth);
+		if(found)
 			throw new CustomerAlreadyExistException();
+		Customer my_customer = new Customer(firstname, lastname, birth);
 		BDD.addCustomer(my_customer);
 		return my_customer;
 	}
 
 	@Override
-	public Customer getCustomer(String firstname, String lastname, Calendar birth) throws CustomerNoExistException {
+	public Customer getCustomer(String firstname, String lastname, Calendar birth) 
+			throws CustomerNoExistException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(firstname,lastname,birth);
-		if(my_customer == null)
+		boolean found = BDD.findCustomer(firstname,lastname,birth);
+		if(! found)
 			throw new CustomerNoExistException();
-		return my_customer;
+		
+		return BDD.getCustomer(firstname,lastname,birth); // don't need to check if null or not since "findCustomer(...)" found something
 	}
 
 	@Override
 	public BankAccount createBankAccount(Customer customer, String accountType)
 			throws CustomerNoExistException, BankAccountTypeNoExistException, BankAccountAlreadyExistException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(customer);
-		if(my_customer == null)
+		boolean found;
+		found = BDD.findCustomer(customer);
+		if(! found)
 			throw new CustomerNoExistException();
 		
-		String my_accountType = BDD.findAccountType(accountType);
-		if(my_accountType == null)
+		found = BDD.findAccountType(accountType);
+		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType + "\" does not exist !");
 		
-		BankAccount my_bankAccount = BDD.findBankAccount(customer,accountType);
-		if(my_bankAccount != null)
+		found = BDD.findBankAccount(customer,accountType);
+		if(found)
 			throw new BankAccountAlreadyExistException();
 		
+		BankAccount my_bankAccount = null;
 		switch(accountType) {
 		case "CHEQUES":
 			my_bankAccount = new BankAccountCheques(customer);
@@ -83,15 +92,15 @@ public class WebServiceBank implements WebServiceBankInterface {
 	public BankAccount getBankAccount(Customer customer, String accountType)
 			throws CustomerNoExistException, BankAccountTypeNoExistException, BankAccountNoExistException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(customer);
-		if(my_customer == null)
+		boolean found = BDD.findCustomer(customer);
+		if(! found)
 			throw new CustomerNoExistException();
 		
-		String my_accountType = BDD.findAccountType(accountType);
-		if(my_accountType == null)
+		found = BDD.findAccountType(accountType);
+		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType + "\" does not exist !");
 		
-		BankAccount my_bankAccount = BDD.findBankAccount(customer,accountType);
+		BankAccount my_bankAccount = BDD.getBankAccount(customer,accountType);
 		if(my_bankAccount == null)
 			throw new BankAccountNoExistException();
 		
@@ -102,8 +111,8 @@ public class WebServiceBank implements WebServiceBankInterface {
 	public double creditMoney(BankAccount bankAccount, double amount)
 			throws BankAccountNoExistException, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
-		if(my_bankAccount == null)
+		boolean found = BDD.findBankAccount(bankAccount);
+		if(! found)
 			throw new BankAccountNoExistException();
 		
 		if(amount <= 0)
@@ -116,8 +125,8 @@ public class WebServiceBank implements WebServiceBankInterface {
 	@Override
 	public double getBalance(BankAccount bankAccount) throws BankAccountNoExistException {
 		// TODO Auto-generated method stub
-		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
-		if(my_bankAccount == null)
+		boolean found = BDD.findBankAccount(bankAccount);
+		if(! found)
 			throw new BankAccountNoExistException();
 		
 		return bankAccount.getBalance();
@@ -127,8 +136,8 @@ public class WebServiceBank implements WebServiceBankInterface {
 	public double debitMoney(BankAccount bankAccount, double amount)
 			throws BankAccountNoExistException, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
-		if(my_bankAccount == null)
+		boolean found = BDD.findBankAccount(bankAccount);
+		if(! found)
 			throw new BankAccountNoExistException();
 		
 		if(amount <= 0)
@@ -142,25 +151,25 @@ public class WebServiceBank implements WebServiceBankInterface {
 
 	@Override
 	public void internTransfer(Customer customer, String accountType1, String accountType2, double amount)
-			throws CustomerNoExistException, BankAccountTypeNoExistException, IncorrectAmountException {
+			throws CustomerNoExistException, BankAccountTypeNoExistException, BankAccountTypeNoExistForCustomerException, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(customer);
-		if(my_customer == null)
+		boolean found = BDD.findCustomer(customer);
+		if(! found)
 			throw new CustomerNoExistException("Customer " + customer + "(arg -> customer) was not found in the database !");
 		
-		String my_accountType = BDD.findAccountType(accountType1);
-		if(my_accountType == null)
+		found = BDD.findAccountType(accountType1);
+		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType1 + "\"(arg -> accountType1) does not exist !");
 		
-		my_accountType = BDD.findAccountType(accountType2);
-		if(my_accountType == null)
+		found = BDD.findAccountType(accountType2);
+		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType2 + "\"(arg -> accountType2) does not exist !");
 	
-		BankAccount my_bankAccount1 = BDD.findBankAccount(customer,accountType1);
+		BankAccount my_bankAccount1 = BDD.getBankAccount(customer,accountType1);
 		if(my_bankAccount1 == null)
 			throw new BankAccountTypeNoExistForCustomerException("Customer " + customer + " does not own any " + accountType1 + "(arg -> accountType1) !");
 		
-		BankAccount my_bankAccount2 = BDD.findBankAccount(customer,accountType2);
+		BankAccount my_bankAccount2 = BDD.getBankAccount(customer,accountType2);
 		if(my_bankAccount2 == null)
 			throw new BankAccountTypeNoExistForCustomerException("Customer " + customer + " does not own any " + accountType2 + "(arg -> accountType2) !");
 		
@@ -179,23 +188,23 @@ public class WebServiceBank implements WebServiceBankInterface {
 	public void wireTransfer(Customer customer1, BankAccount bankAccount1, Customer customer2, BankAccount bankAccount2, double amount) 
 			throws CustomerNoExistException, BankAccountNoExistException, BankAccountNoBelongToCustomer, IncorrectAmountException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(customer1);
-		if(my_customer == null)
+		boolean found = BDD.findCustomer(customer1);
+		if(! found)
 			throw new CustomerNoExistException("Customer " + customer1 + "(arg -> customer1) was not found in the database !");
 		
-		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount1);
-		if(my_bankAccount == null)
+		found = BDD.findBankAccount(bankAccount1);
+		if(! found)
 			throw new BankAccountNoExistException("BankAccount " + bankAccount1 + "(arg -> bankAccount1) was not found in the database !");
 		
 		if(customer1 != bankAccount1.getCustomer()) // !!!! partons du principe qu'ils ont les mêmes intances
 			throw new BankAccountNoBelongToCustomer("Customer " + customer1 + "(arg -> customer1) does not own BankAccount " + bankAccount1 + "(arg -> bankAccount1) !");
 		
-		my_customer = BDD.findCustomer(customer2);
-		if(my_customer == null)
+		found = BDD.findCustomer(customer2);
+		if(! found)
 			throw new CustomerNoExistException("Customer " + customer2 + "(arg -> customer2) was not found in the database !");
 		
-		my_bankAccount = BDD.findBankAccount(bankAccount2);
-		if(my_bankAccount == null)
+		found = BDD.findBankAccount(bankAccount2);
+		if(! found)
 			throw new BankAccountNoExistException("BankAccount " + bankAccount2 + "(arg -> bankAccount2) was not found in the database !");
 		
 		if(customer2 != bankAccount2.getCustomer()) // !!!! partons du principe qu'ils ont les mêmes intances
@@ -213,8 +222,8 @@ public class WebServiceBank implements WebServiceBankInterface {
 	@Override
 	public double settleAccount(BankAccount bankAccount) throws BankAccountNoExistException {
 		// TODO Auto-generated method stub
-		BankAccount my_bankAccount = BDD.findBankAccount(bankAccount);
-		if(my_bankAccount == null)
+		boolean found = BDD.findBankAccount(bankAccount);
+		if(! found)
 			throw new BankAccountNoExistException();
 		//!!! Que mettre ici ??? Est ça qu'il faut faire ?
 		return bankAccount.settle();
@@ -223,10 +232,11 @@ public class WebServiceBank implements WebServiceBankInterface {
 	@Override
 	public void removeCustomer(Customer customer) throws CustomerNoExistException {
 		// TODO Auto-generated method stub
-		Customer my_customer = BDD.findCustomer(customer);
-		if(my_customer == null)
+		boolean found = BDD.findCustomer(customer);
+		if(! found)
 			throw new CustomerNoExistException("Customer " + customer + " does not exist !");
 		
+		// we remove customer's bank accounts and then we remove the customer
 		for(BankAccount ba : customer.getAccounts())
 			BDD.removeBankAccount(ba);
 		BDD.removeCustomer(customer);

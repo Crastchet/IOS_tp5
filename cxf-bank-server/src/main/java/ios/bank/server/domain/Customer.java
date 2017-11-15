@@ -11,6 +11,10 @@ public class Customer {
 	private Calendar birth;
 	private Set<BankAccount> accounts;
 	
+	public Customer() {
+		
+	}
+	
 	public Customer(String fn, String ln, Calendar b) {
 		this.firstname = fn;
 		this.lastname = ln;
@@ -48,8 +52,13 @@ public class Customer {
 	@Override
 	public boolean equals(Object o) {
 		return
-				this.getFirstName() == ((Customer)o).getFirstName()
-			&&	this.getLastName() == ((Customer)o).getLastName()
-			&&	this.getBirth().equals( ((Customer)o).getBirth() );
+				this.getFirstName().equals( ((Customer)o).getFirstName() )
+			&&	this.getLastName().equals( ((Customer)o).getLastName() )
+			&&	this.getBirth().getTimeInMillis() ==( ((Customer)o).getBirth().getTimeInMillis() );
+	}
+	
+	@Override
+	public String toString() {
+		return "Firstname : " + this.firstname + "\nLastName : " + this.lastname + "\nBirth : " + this.getBirth().YEAR + "/" + this.getBirth().MONTH + "/" + this.getBirth().DAY_OF_MONTH;
 	}
 }

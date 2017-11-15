@@ -10,6 +10,7 @@ import ios.bank.server.exceptions.BankAccountAlreadyExistException;
 import ios.bank.server.exceptions.BankAccountNoBelongToCustomer;
 import ios.bank.server.exceptions.BankAccountNoExistException;
 import ios.bank.server.exceptions.BankAccountTypeNoExistException;
+import ios.bank.server.exceptions.BankAccountTypeNoExistForCustomerException;
 import ios.bank.server.exceptions.CustomerAlreadyExistException;
 import ios.bank.server.exceptions.CustomerNoExistException;
 import ios.bank.server.exceptions.IncorrectAmountException;
@@ -47,6 +48,7 @@ public interface WebServiceBankInterface {
 	public void internTransfer(Customer customer, String accountType1, String accountType2, double amount) 
 			throws  CustomerNoExistException, 
 					BankAccountTypeNoExistException, 
+					BankAccountTypeNoExistForCustomerException, 
 					IncorrectAmountException;
 	
 	public void wireTransfer(Customer customer1, BankAccount bankAccount1, Customer customer2, BankAccount bankAccount2, double amount) 

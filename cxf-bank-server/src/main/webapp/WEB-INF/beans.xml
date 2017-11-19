@@ -9,8 +9,8 @@
         <import resource="classpath:META-INF/cxf/cxf.xml" />
 
         <jaxws:endpoint 
-          id="helloWorld" 
-          implementor="ios.bank.server.HelloWorldImpl" 
-          address="/HelloWorld" />
+          id="bankservice" 
+          implementor="ios.bank.server.WebServiceBank" 
+          address="/Bank" />
           
 </beans>

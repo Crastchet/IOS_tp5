@@ -14,6 +14,7 @@ import ios.bank.generated.WebServiceBankInterface;
 public class Main {
 
 	public static void main(String[] args) throws DatatypeConfigurationException {
+		/**
 		// TODO Auto-generated method stub
 		GregorianCalendar c = new GregorianCalendar(1995,05,13);
 		XMLGregorianCalendar birth =  DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
@@ -28,7 +29,7 @@ public class Main {
 		/** Methods : 
 		 * 			createCustomer(String firstname, String lastname, Calendar birth)
 		 * 			getCustomer(String firstname, String lastname, Calendar birth)
-		 */
+		 *
 		//Récupération de clients qui existent
 		try {
 			//On crée 1 client, puis on le récupère
@@ -53,6 +54,6 @@ public class Main {
 		}
 		
 		
-		
+		**/
 	}
 }

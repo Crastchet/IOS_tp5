@@ -15,7 +15,7 @@ public class BankServiceClient {
 	public BankServiceClient() {
 		ClientProxyFactoryBean factory = new ClientProxyFactoryBean(new JaxWsClientFactoryBean());
 		factory.setServiceClass(WebServiceBankInterface.class);
-		factory.setAddress("http://localhost:8080/cxf-bank-server/WebServiceBank");
+		factory.setAddress("http://localhost:8080/cxf-bank-server/Bank");
 		this.service = (WebServiceBankInterface) factory.create();
 	}
 	

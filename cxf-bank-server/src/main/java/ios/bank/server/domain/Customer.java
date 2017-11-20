@@ -34,26 +34,38 @@ public class Customer {
 		return this.accounts;
 	}
 	
-	public String getFirstName() {
-		return this.firstname;
+	public String getFirstname() {
+		return firstname;
 	}
-	
-	public String getLastName() {
-		return this.lastname;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public void setBirth(Calendar birth) {
+		this.birth = birth;
 	}
 	
 	public Calendar getBirth() {
 		return this.birth;
 	}
-	
+
 	/**
 	 * Customers comparison based on firstname, lastname, birth
 	 */
 	@Override
 	public boolean equals(Object o) {
 		return
-				this.getFirstName().equals( ((Customer)o).getFirstName() )
-			&&	this.getLastName().equals( ((Customer)o).getLastName() )
+				this.getFirstname().equals( ((Customer)o).getFirstname() )
+			&&	this.getLastname().equals( ((Customer)o).getLastname() )
 			&&	this.getBirth().getTimeInMillis() ==( ((Customer)o).getBirth().getTimeInMillis() );
 	}
 	

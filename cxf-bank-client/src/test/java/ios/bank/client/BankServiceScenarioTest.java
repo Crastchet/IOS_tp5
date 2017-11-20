@@ -20,20 +20,22 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public class BankServiceScenarioTest {
 	
+	BankServiceClient client = new BankServiceClient();
+	WebServiceBankInterface port = client.getService();
+	
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 
 	@Test
 	public void createCustomerTest() {
-		BankServiceClient client = new BankServiceClient();
-		WebServiceBankInterface port = client.getService();
+		port.clearDB();
 		
 		try {
 			Customer customer1 = port.createCustomer("Thibault", "Coilliaux", toCalendar(1995, 05, 13));
 			Customer customer2 = port.createCustomer("Antoine", "Coilliaux", toCalendar(1997, 04, 17));
 			assertNotNull(customer1);
 			assertNotNull(customer2);
-			assertNotEquals(customer1, customer2);
+			assertNotEquals(customer1.getFirstname(), customer2.getFirstname());
 		} catch (CustomerAlreadyExistException_Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,9 +83,9 @@ public class BankServiceScenarioTest {
 			Customer customerGot1 = port.getCustomer("Thibault", "Coilliaux", toCalendar(1995, 05, 13));
 			Customer customerGot2 = port.getCustomer("Antoine", "Coilliaux", toCalendar(1997, 04, 17));
 
-			assertEquals(customer1,customerGot1);
-			assertEquals(customer2,customerGot2);
-			assertNotEquals(customerGot1, customerGot2);
+			assertEquals(customer1.getFirstname(),customerGot1.getFirstname());
+			assertEquals(customer2.getFirstname(),customerGot2.getFirstname());
+			assertNotEquals(customerGot1.getFirstname(), customerGot2.getFirstname());
 		} catch (CustomerAlreadyExistException_Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

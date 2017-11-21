@@ -14,17 +14,12 @@ public final class DataBase {
 	
 	private ArrayList<Customer> customers;
 	private ArrayList<BankAccount> bankAccounts;
-	//private ArrayList<String> accountTypes;
-	//private final String[] c_accountTypesList = { "CHEQUES" , "LIVRET_A" , "LIVRET_JEUNE" , "LIVRET_DEVELOPPEMENT_DURABLE" };
 	private enum accountsTypesEnum { CHEQUES, LIVRET_A, LIVRET_JEUNE, LIVRET_DEVELOPPEMENT_DURABLE };
 	
 	private static DataBase DB;
 	private DataBase() { 
 		this.customers = new ArrayList<Customer>();
 		this.bankAccounts = new ArrayList<>();
-//		this.accountTypes = new ArrayList<>();
-//			for(String str : c_accountTypesList)
-//				this.accountTypes.add(str);
 	}
 	
 	public static DataBase instanceDataBase() {
@@ -47,7 +42,6 @@ public final class DataBase {
 	}
 	
 	public boolean findCustomer(Customer customer) { // because we overrode the .equals(Object o) method of Customer
-		//System.out.println("Contains : " + this.customers.contains(customer));
 		return this.customers.contains(customer);
 	}
 	
@@ -82,7 +76,6 @@ public final class DataBase {
 			return this.findBankAccount(new BankAccountLivretJeune(customer));
 		if (accountsTypesEnum.LIVRET_DEVELOPPEMENT_DURABLE.name().equals(accountType)) 
 			return this.findBankAccount(new BankAccountLivretDeveloppementDurable(customer));
-		System.out.println("On retourne false");
 		return false;
 	}
 	

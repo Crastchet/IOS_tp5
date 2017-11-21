@@ -12,7 +12,7 @@ public class Customer {
 	private Set<BankAccount> accounts;
 	
 	public Customer() {
-		
+		this.accounts = new HashSet<BankAccount>();
 	}
 	
 	public Customer(String fn, String ln, Calendar b) {

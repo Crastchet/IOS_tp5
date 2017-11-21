@@ -1,12 +1,14 @@
 package ios.bank.server.domain;
 
-public abstract class BankAccount {
+public class BankAccount {
 
 	protected Customer customer;
 	protected double balance;
 	protected boolean settled;
 	
-	protected BankAccount(Customer c) {
+	public BankAccount() {}
+	
+	public BankAccount(Customer c) {
 		this.customer = c;
 		this.balance = 0;
 		this.settled = false;
@@ -32,10 +34,15 @@ public abstract class BankAccount {
 		return this.balance;
 	}
 	
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	
 	public double settle() {
 		this.settled = true;
 		double to_Return = this.getBalance();
 		this.balance = 0;
 		return to_Return;
 	}
+	
 }

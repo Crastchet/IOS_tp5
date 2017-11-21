@@ -27,7 +27,7 @@ public interface WebServiceBankInterface {
 	public BankAccount createBankAccount(Customer customer, String accountType) 
 			throws  CustomerNoExistException, 
 					BankAccountTypeNoExistException, 
-					BankAccountAlreadyExistException; //changer accountType en enum ?
+					BankAccountAlreadyExistException;
 	
 	public BankAccount getBankAccount(Customer customer, String accountType) 
 			throws  CustomerNoExistException, 

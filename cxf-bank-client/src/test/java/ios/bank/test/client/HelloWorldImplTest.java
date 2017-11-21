@@ -1,7 +1,10 @@
 
-package ios.bank.client;
+package ios.bank.test.client;
 
 import org.junit.Test;
+
+import ios.bank.client.HelloWorldImpl;
+
 import static org.junit.Assert.assertEquals;
 
 public class HelloWorldImplTest {

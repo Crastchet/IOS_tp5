@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour getBalanceResponse complex type.
+ * <p>Java class for getBalanceResponse complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="getBalanceResponse"&gt;
@@ -36,7 +36,7 @@ public class GetBalanceResponse {
     protected double _return;
 
     /**
-     * Obtient la valeur de la propriété return.
+     * Gets the value of the return property.
      * 
      */
     public double getReturn() {
@@ -44,7 +44,7 @@ public class GetBalanceResponse {
     }
 
     /**
-     * Définit la valeur de la propriété return.
+     * Sets the value of the return property.
      * 
      */
     public void setReturn(double value) {

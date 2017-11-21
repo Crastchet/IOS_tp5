@@ -74,7 +74,7 @@ public class WebServiceBank implements WebServiceBankInterface {
 		case "LIVRET_A":
 			my_bankAccount = new BankAccountLivretA(customer);
 			break;
-		case "LIVRET_D_D":
+		case "LIVRET_DEVELOPPEMENT_DURABLE":
 			my_bankAccount = new BankAccountLivretDeveloppementDurable(customer);
 			break;
 		case "LIVRET_JEUNE":
@@ -100,11 +100,11 @@ public class WebServiceBank implements WebServiceBankInterface {
 		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType + "\" does not exist !");
 		
-		BankAccount my_bankAccount = BDD.getBankAccount(customer,accountType);
-		if(my_bankAccount == null)
+		found = BDD.findBankAccount(customer,accountType);
+		if(! found)
 			throw new BankAccountNoExistException();
 		
-		return my_bankAccount;
+		return BDD.getBankAccount(customer, accountType);
 	}
 
 	@Override
@@ -165,13 +165,16 @@ public class WebServiceBank implements WebServiceBankInterface {
 		if(! found)
 			throw new BankAccountTypeNoExistException("The type of BankAccount \"" + accountType2 + "\"(arg -> accountType2) does not exist !");
 	
-		BankAccount my_bankAccount1 = BDD.getBankAccount(customer,accountType1);
-		if(my_bankAccount1 == null)
+		found = BDD.findBankAccount(customer,accountType1);
+		if(! found )
 			throw new BankAccountTypeNoExistForCustomerException("Customer " + customer + " does not own any " + accountType1 + "(arg -> accountType1) !");
 		
-		BankAccount my_bankAccount2 = BDD.getBankAccount(customer,accountType2);
-		if(my_bankAccount2 == null)
+		found = BDD.findBankAccount(customer,accountType2);
+		if(! found)
 			throw new BankAccountTypeNoExistForCustomerException("Customer " + customer + " does not own any " + accountType2 + "(arg -> accountType2) !");
+		
+		BankAccount my_bankAccount1 = BDD.getBankAccount(customer,accountType1);
+		BankAccount my_bankAccount2 = BDD.getBankAccount(customer,accountType2);
 		
 		if(amount <= 0)
 			throw new IncorrectAmountException("Tried to transfer " + amount + " from " + my_bankAccount1 + "(arg -> accountType1) to " + my_bankAccount2 + "(arg -> accountType2). Transferring a null or negative amount is not allowed !");

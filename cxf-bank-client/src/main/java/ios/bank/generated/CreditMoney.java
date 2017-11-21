@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour creditMoney complex type.
+ * <p>Java class for creditMoney complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="creditMoney"&gt;
@@ -37,7 +37,7 @@ public class CreditMoney {
     protected double arg1;
 
     /**
-     * Obtient la valeur de la propriété arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class CreditMoney {
     }
 
     /**
-     * Définit la valeur de la propriété arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class CreditMoney {
     }
 
     /**
-     * Obtient la valeur de la propriété arg1.
+     * Gets the value of the arg1 property.
      * 
      */
     public double getArg1() {
@@ -69,7 +69,7 @@ public class CreditMoney {
     }
 
     /**
-     * Définit la valeur de la propriété arg1.
+     * Sets the value of the arg1 property.
      * 
      */
     public void setArg1(double value) {

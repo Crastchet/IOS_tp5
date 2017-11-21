@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour BankAccountNoExistException complex type.
+ * <p>Java class for BankAccountNoExistException complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="BankAccountNoExistException"&gt;
@@ -34,7 +34,7 @@ public class BankAccountNoExistException {
     protected String message;
 
     /**
-     * Obtient la valeur de la propriété message.
+     * Gets the value of the message property.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class BankAccountNoExistException {
     }
 
     /**
-     * Définit la valeur de la propriété message.
+     * Sets the value of the message property.
      * 
      * @param value
      *     allowed object is

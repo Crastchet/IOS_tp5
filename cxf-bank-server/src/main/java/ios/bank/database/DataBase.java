@@ -29,10 +29,14 @@ public final class DataBase {
 	
 	public static DataBase instanceDataBase() {
 		if(DB == null )
-			return new DataBase();
+			DB = new DataBase();
 		return DB;
 	}
 	
+	public void clearData() {
+		this.bankAccounts.clear();
+		this.customers.clear();
+	}
 	
 	public void addCustomer(Customer customer) {
 		this.customers.add(customer);
@@ -70,34 +74,31 @@ public final class DataBase {
 	}
 	
 	public boolean findBankAccount(Customer customer, String accountType) { // because we overrode the .equals(Object o) method of BankAccount's subclasses and the .equals(Object o) method of Customer
-		switch(accountsTypesEnum.valueOf(accountType)) {
-		case CHEQUES:
+		if (accountsTypesEnum.CHEQUES.name().equals(accountType)) 
 			return this.findBankAccount(new BankAccountCheques(customer));
-		case LIVRET_A:
+		if (accountsTypesEnum.LIVRET_A.name().equals(accountType)) 
 			return this.findBankAccount(new BankAccountLivretA(customer));
-		case LIVRET_JEUNE:
+		if (accountsTypesEnum.LIVRET_JEUNE.name().equals(accountType)) 
 			return this.findBankAccount(new BankAccountLivretJeune(customer));
-		case LIVRET_DEVELOPPEMENT_DURABLE:
+		if (accountsTypesEnum.LIVRET_DEVELOPPEMENT_DURABLE.name().equals(accountType)) 
 			return this.findBankAccount(new BankAccountLivretDeveloppementDurable(customer));
-		default:
-			return false;	
-		}
+		System.out.println("On retourne false");
+		return false;
 	}
 	
 	public BankAccount getBankAccount(Customer customer, String accountType) { // tricky
-		BankAccount ba;
-		switch(accountsTypesEnum.valueOf(accountType)) {
-		case CHEQUES:
+		BankAccount ba = null;
+		if (accountsTypesEnum.CHEQUES.name().equals(accountType)) 
 			ba = new BankAccountCheques(customer);
-		case LIVRET_A:
+		if (accountsTypesEnum.LIVRET_A.name().equals(accountType)) 
 			ba = new BankAccountLivretA(customer);
-		case LIVRET_JEUNE:
+		if (accountsTypesEnum.LIVRET_JEUNE.name().equals(accountType)) 
 			ba = new BankAccountLivretJeune(customer);
-		case LIVRET_DEVELOPPEMENT_DURABLE:
+		if (accountsTypesEnum.LIVRET_DEVELOPPEMENT_DURABLE.name().equals(accountType)) 
 			ba = new BankAccountLivretDeveloppementDurable(customer);
-		default:
-			ba = null;	
-		}
+		
+		if(ba == null)
+			return null;
 		
 		return this.bankAccounts.get(
 				this.bankAccounts.indexOf( ba )
@@ -105,9 +106,10 @@ public final class DataBase {
 	}
 	
 	public boolean findAccountType(String accountType) {
-		for(accountsTypesEnum bat : accountsTypesEnum.values())
-			if(accountsTypesEnum.valueOf(accountType) == bat)
+		for(accountsTypesEnum bat : accountsTypesEnum.values()) {
+			if(accountType.equals(bat.name()))
 				return true;
+		}
 		return false;
 	}
 	

@@ -7,15 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour bankAccount complex type.
+ * <p>Java class for bankAccount complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="bankAccount"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="balance" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="customer" type="{http://server.bank.ios/}customer" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -27,14 +28,32 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "bankAccount", propOrder = {
+    "balance",
     "customer"
 })
-public abstract class BankAccount {
+public class BankAccount {
 
+    protected double balance;
     protected Customer customer;
 
     /**
-     * Obtient la valeur de la propriété customer.
+     * Gets the value of the balance property.
+     * 
+     */
+    public double getBalance() {
+        return balance;
+    }
+
+    /**
+     * Sets the value of the balance property.
+     * 
+     */
+    public void setBalance(double value) {
+        this.balance = value;
+    }
+
+    /**
+     * Gets the value of the customer property.
      * 
      * @return
      *     possible object is
@@ -46,7 +65,7 @@ public abstract class BankAccount {
     }
 
     /**
-     * Définit la valeur de la propriété customer.
+     * Sets the value of the customer property.
      * 
      * @param value
      *     allowed object is

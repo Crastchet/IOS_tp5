@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour removeCustomer complex type.
+ * <p>Java class for removeCustomer complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="removeCustomer"&gt;
@@ -34,7 +34,7 @@ public class RemoveCustomer {
     protected Customer arg0;
 
     /**
-     * Obtient la valeur de la propriété arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class RemoveCustomer {
     }
 
     /**
-     * Définit la valeur de la propriété arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is

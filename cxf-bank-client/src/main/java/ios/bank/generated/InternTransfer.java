@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour internTransfer complex type.
+ * <p>Java class for internTransfer complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="internTransfer"&gt;
@@ -43,7 +43,7 @@ public class InternTransfer {
     protected double arg3;
 
     /**
-     * Obtient la valeur de la propriété arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class InternTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class InternTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg1.
+     * Gets the value of the arg1 property.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class InternTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg1.
+     * Sets the value of the arg1 property.
      * 
      * @param value
      *     allowed object is
@@ -91,7 +91,7 @@ public class InternTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg2.
+     * Gets the value of the arg2 property.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class InternTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg2.
+     * Sets the value of the arg2 property.
      * 
      * @param value
      *     allowed object is
@@ -115,7 +115,7 @@ public class InternTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg3.
+     * Gets the value of the arg3 property.
      * 
      */
     public double getArg3() {
@@ -123,7 +123,7 @@ public class InternTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg3.
+     * Sets the value of the arg3 property.
      * 
      */
     public void setArg3(double value) {

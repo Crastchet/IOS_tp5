@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour wireTransfer complex type.
+ * <p>Java class for wireTransfer complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wireTransfer"&gt;
@@ -46,7 +46,7 @@ public class WireTransfer {
     protected double arg4;
 
     /**
-     * Obtient la valeur de la propriété arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class WireTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class WireTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg1.
+     * Gets the value of the arg1 property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class WireTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg1.
+     * Sets the value of the arg1 property.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class WireTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg2.
+     * Gets the value of the arg2 property.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class WireTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg2.
+     * Sets the value of the arg2 property.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class WireTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg3.
+     * Gets the value of the arg3 property.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class WireTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg3.
+     * Sets the value of the arg3 property.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class WireTransfer {
     }
 
     /**
-     * Obtient la valeur de la propriété arg4.
+     * Gets the value of the arg4 property.
      * 
      */
     public double getArg4() {
@@ -150,7 +150,7 @@ public class WireTransfer {
     }
 
     /**
-     * Définit la valeur de la propriété arg4.
+     * Sets the value of the arg4 property.
      * 
      */
     public void setArg4(double value) {

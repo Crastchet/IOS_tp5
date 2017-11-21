@@ -303,6 +303,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link BankAccount }
+     * 
+     */
+    public BankAccount createBankAccount() {
+        return new BankAccount();
+    }
+
+    /**
      * Create an instance of {@link Customer }
      * 
      */

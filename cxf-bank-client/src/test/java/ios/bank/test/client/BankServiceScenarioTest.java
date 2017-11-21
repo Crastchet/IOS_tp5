@@ -662,6 +662,43 @@ public class BankServiceScenarioTest {
 		}
 	}
 	
+	@Test
+	public void internTransfer_IncorrectAmountException_Test() {
+		portAdmin.clearDB();
+		
+		try {
+			Customer customer = port.createCustomer("Thibault", "Coilliaux", toCalendar(1995, 05, 13));
+			port.createBankAccount(customer, "CHEQUES");
+			port.createBankAccount(customer, "LIVRET_A");
+			port.internTransfer(customer, "CHEQUES", "LIVRET_A", -2);
+			fail("It should have raised an exception ! (IncorrectAmountException)");
+			
+		} catch (CustomerNoExistException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("internTransfer_IncorrectAmountException_Test() : CustomerNoExistException raised but was not supposed to");
+		} catch (BankAccountTypeNoExistException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("internTransfer_IncorrectAmountException_Test() : BankAccountTypeNoExistException raised but was not supposed to");
+		} catch (BankAccountTypeNoExistForCustomerException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("internTransfer_IncorrectAmountException_Test() : BankAccountTypeNoExistForCustomerException raised but was not supposed to");
+		} catch (IncorrectAmountException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertSame(e.getClass(), IncorrectAmountException_Exception.class);
+		} catch (CustomerAlreadyExistException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("internTransfer_IncorrectAmountException_Test() : CustomerAlreadyExistException raised but was not supposed to");
+		} catch (BankAccountAlreadyExistException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("internTransfer_IncorrectAmountException_Test() : BankAccountAlreadyExistException raised but was not supposed to");
+		}
+	}
 	
 	
 	public static XMLGregorianCalendar toCalendar(int y, int m, int d) {
